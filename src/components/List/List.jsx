@@ -1,30 +1,18 @@
 import React, { useState } from 'react';
-import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import {  CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core'; 
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 
 import useStyles from './styles';
 
-const List = () => {
+const List = ({ places }) => {
 
   const classes = useStyles();
   const [type, setType] = useState('resturants');
   const [rating, setRating] = useState('');
 
-  const places = [
-    { name: 'Cool Place' },
-    { name: 'Best Pub' },
-    { name: 'Best Steak' },
-    { name: 'Cool Place' },
-    { name: 'Best Pub' },
-    { name: 'Best Steak' },
-    { name: 'Cool Place' },
-    { name: 'Best Pub' },
-    { name: 'Best Steak' },
-  ];
-
   return (
     <div className={classes.container}>
-      <Typography variant='h4'>The best resturants, hotels, & attractions</Typography>
+      <Typography variant='h4'>The Best Hotels, Resturants, & Attractions</Typography>
       <FormControl className={classes.formControl}>
         <InputLabel>Type</InputLabel>
         <Select value={type} onChange={(e) => setType(e.target.value)}>
