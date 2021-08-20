@@ -45,7 +45,7 @@ const App = () => {
           setIsLoading(false);
         });
     }
-  }, [bounds, coordinates, type]); //if we dont supply the dependency array or leave it empty, the code inside our useEffect block will only run at the start of the application. Eg the geolocation useEffect above.
+  }, [bounds, type]); //if we dont supply the dependency array or leave it empty, the code inside our useEffect block will only run at the start of the application. Eg the geolocation useEffect above.
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -73,7 +73,7 @@ const App = () => {
             setRating={setRating}
           />
         </Grid>
-        <Grid item xs={12} md={8} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item xs={12} md={8} >
           <Map
             setCoordinates={setCoordinates}
             setBounds={setBounds}
