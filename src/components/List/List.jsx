@@ -17,7 +17,7 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
 
   return (
     <div className={classes.container}>
-      <Typography variant='h4'>The Best Hotels, Resturants, & Attractions</Typography>
+      <Typography variant='h4'>The Best Hotels, Restaurants, & Attractions</Typography>
       {isLoading ? (
         <div className={classes.loading}>
           <CircularProgress size='5rem' />
@@ -27,7 +27,7 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
       <FormControl className={classes.formControl}>
         <InputLabel>Type</InputLabel>
         <Select value={type} onChange={(e) => setType(e.target.value)}>
-          <MenuItem value='resturants'>Resturants</MenuItem>
+          <MenuItem value='restaurants'>Restaurants</MenuItem>
           <MenuItem value='hotels'>Hotels</MenuItem>
           <MenuItem value='attractions'>Attractions</MenuItem>
         </Select>
@@ -36,6 +36,7 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
         <InputLabel>Rating</InputLabel>
         <Select value={rating} onChange={(e) => setRating(e.target.value)}>
           <MenuItem value={0}>All</MenuItem>
+          <MenuItem value={3}>3 & Above</MenuItem>
           <MenuItem value={4}>Above 4.0</MenuItem>
           <MenuItem value={4.5}>Above 4.5</MenuItem>
         </Select>

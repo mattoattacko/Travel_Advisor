@@ -16,15 +16,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
+  const [autocomplete, setAutocomplete] = useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {
       setCoordinates({ lat: latitude, lng: longitude });
-    })
+    });
   }, []);
 
   useEffect(() => {
-    const filteredPlaces = places.filter((place) => place.rating > rating);
+    const filteredPlaces = places.filter((place) => Number(place.rating) > rating);
 
     setFilteredPlaces(filteredPlaces);
   }, [rating]);
@@ -40,20 +41,26 @@ const App = () => {
       getPlacesData(type, bounds.sw, bounds.ne)
         .then((data) => {
           setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
-          setFilteredPlaces([])
+          setFilteredPlaces([]);
           setIsLoading(false);
-        })
+        });
     }
-  }, [type, bounds]); //if we dont supply the dependency array or leave it empty, the code inside our useEffect block will only run at the start of the application. Eg the geolocation useEffect above.
+  }, [bounds, coordinates, type]); //if we dont supply the dependency array or leave it empty, the code inside our useEffect block will only run at the start of the application. Eg the geolocation useEffect above.
 
-  console.log(places)
-  console.log(filteredPlaces)
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+
+    setCoordinates({ lat, lng });
+  };
 
   return (
     <>
       {/* This is where we are passing things to our various components */}
       <CssBaseline />
-      <Header setCoordinates={setCoordinates} /> 
+      <Header onLoad={onLoad} onPlaceChanged={onPlaceChanged} setCoordinates={setCoordinates} /> 
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={4}>
           <List 
@@ -66,7 +73,7 @@ const App = () => {
             setRating={setRating}
           />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={8} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Map
             setCoordinates={setCoordinates}
             setBounds={setBounds}
