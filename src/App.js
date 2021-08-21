@@ -15,7 +15,7 @@ const App = () => {
   const [childClicked, setChildClicked] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('4');
   const [autocomplete, setAutocomplete] = useState(null);
 
   useEffect(() => {
